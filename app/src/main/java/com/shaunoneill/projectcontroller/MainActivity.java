@@ -6,10 +6,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     boolean state1, state2, state3, state4;
     Button switch1, switch2, switch3, switch4;
+
+    OkHttpClient client = new OkHttpClient();
+    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
     public void toggleState(View button){
         if (button.getId() == R.id.switch1) {
             state1 = !state1; // Toggle state
+
+
         }else if (button.getId() == R.id.switch2) {
             state2 = !state2; // Toggle state
         }else if (button.getId() == R.id.switch3) {
@@ -73,5 +86,32 @@ public class MainActivity extends AppCompatActivity {
         }else if (button.getId() == R.id.switch4) {
             state4 = !state4; // Toggle state
         }
+    }
+
+    String post(String url, int switchNumber, boolean state) throws IOException {
+        RequestBody body = RequestBody.create(JSON, buildPostData(switchNumber, state));
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            if (response.body() != null) {
+                return response.body().string();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Builds the JSON data for the post request
+     * @param switchNumber
+     * @param state
+     * @return
+     */
+    String buildPostData (int switchNumber, boolean state) {
+        return "{"
+                + "'switchNumber': " + switchNumber
+                + ",'state': " + state
+                +"}";
     }
 }
