@@ -6,7 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.obd.infrared.InfraRed;
+import com.obd.infrared.log.LogToConsole;
+import com.obd.infrared.patterns.PatternAdapter;
+import com.obd.infrared.patterns.PatternConverter;
+import com.obd.infrared.patterns.PatternType;
+import com.obd.infrared.transmit.TransmitInfo;
+import com.obd.infrared.transmit.TransmitterType;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -22,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
+    InfraRed infraRed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +44,29 @@ public class MainActivity extends AppCompatActivity {
         switch3 = (Button) findViewById(R.id.switch3);
         switch4 = (Button) findViewById(R.id.switch4);
 
+        /**
+         * Setup the IR blaster
+         */
+        LogToConsole logToConsole = new LogToConsole("INFRARED");
+        infraRed = new InfraRed(this, logToConsole);
+
+        TransmitterType transmitterType = infraRed.detect();
+        infraRed.createTransmitter(transmitterType);
+
+        List<PatternConverter> rawPatterns = new ArrayList<>();
+
+        rawPatterns.add(new PatternConverter(PatternType.Cycles, 38000, 493));
+
+        PatternAdapter patternAdapter = new PatternAdapter(logToConsole, transmitterType);
+        TransmitInfo[] transmitInfoArray = new TransmitInfo[rawPatterns.size()];
+        for (int x = 0; x < transmitInfoArray.length; x++) {
+            transmitInfoArray[x] = patternAdapter.createTransmitInfo(rawPatterns.get(x));
+        }
+
+
+        /**
+         * Set the button colours based on their state
+         */
         fetchStateColors();
     }
 
