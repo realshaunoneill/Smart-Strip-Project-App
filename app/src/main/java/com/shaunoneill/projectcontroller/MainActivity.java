@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     InfraRed infraRed;
+    private TransmitInfo[] patterns;
+    LogToConsole logToConsole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Setup the IR blaster
          */
-        LogToConsole logToConsole = new LogToConsole("INFRARED");
+        logToConsole = new LogToConsole("INFRARED");
         infraRed = new InfraRed(this, logToConsole);
 
         TransmitterType transmitterType = infraRed.detect();
@@ -62,12 +64,25 @@ public class MainActivity extends AppCompatActivity {
         for (int x = 0; x < transmitInfoArray.length; x++) {
             transmitInfoArray[x] = patternAdapter.createTransmitInfo(rawPatterns.get(x));
         }
-
+        this.patterns = transmitInfoArray;
 
         /**
          * Set the button colours based on their state
          */
         fetchStateColors();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        infraRed.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        infraRed.stop();
     }
 
     public void clickSwitch (View view) {
