@@ -143,31 +143,6 @@ public class MainActivity extends AppCompatActivity {
             wifiSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
             infraredSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
-
-        /*// Infrared
-        if (infraredState1) {
-            infraredSwitch1.setBackgroundColor(Color.parseColor("#4CAF50"));
-        }else {
-            infraredSwitch1.setBackgroundColor(Color.parseColor("#F44336")); // False
-        }
-
-        if (infraredState2) {
-            infraredSwitch2.setBackgroundColor(Color.parseColor("#4CAF50"));
-        }else {
-            infraredSwitch2.setBackgroundColor(Color.parseColor("#F44336")); // False
-        }
-
-        if (infraredState3) {
-            infraredSwitch3.setBackgroundColor(Color.parseColor("#4CAF50"));
-        }else {
-            infraredSwitch3.setBackgroundColor(Color.parseColor("#F44336")); // False
-        }
-
-        if (infraredState4) {
-            infraredSwitch4.setBackgroundColor(Color.parseColor("#4CAF50"));
-        }else {
-            infraredSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
-        }*/
     }
 
     /**
