@@ -113,35 +113,35 @@ public class MainActivity extends AppCompatActivity {
     public void fetchStateColors() {
         // Wifi
         if (wifiState1 || infraredState1) {
-            wifiSwitch1.setBackgroundColor(Color.parseColor("#4CAF50"));
-            infraredSwitch1.setBackgroundColor(Color.parseColor("#4CAF50"));
+            wifiSwitch1.setBackgroundColor(getResources().getColor(R.color.color_green));
+            infraredSwitch1.setBackgroundColor(getResources().getColor(R.color.color_green));
         }else {
-            wifiSwitch1.setBackgroundColor(Color.parseColor("#F44336")); // False
-            infraredSwitch1.setBackgroundColor(Color.parseColor("#F44336")); // False
+            wifiSwitch1.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
+            infraredSwitch1.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
         }
 
         if (wifiState2 || infraredState2) {
-            wifiSwitch2.setBackgroundColor(Color.parseColor("#4CAF50"));
-            infraredSwitch2.setBackgroundColor(Color.parseColor("#4CAF50"));
+            wifiSwitch2.setBackgroundColor(getResources().getColor(R.color.color_green));
+            infraredSwitch2.setBackgroundColor(getResources().getColor(R.color.color_green));
         }else {
-            wifiSwitch2.setBackgroundColor(Color.parseColor("#F44336")); // False
-            infraredSwitch2.setBackgroundColor(Color.parseColor("#F44336")); // False
+            wifiSwitch2.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
+            infraredSwitch2.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
         }
 
         if (wifiState3 || infraredState3) {
-            wifiSwitch3.setBackgroundColor(Color.parseColor("#4CAF50"));
-            infraredSwitch3.setBackgroundColor(Color.parseColor("#4CAF50"));
+            wifiSwitch3.setBackgroundColor(getResources().getColor(R.color.color_green));
+            infraredSwitch3.setBackgroundColor(getResources().getColor(R.color.color_green));
         }else {
-            wifiSwitch3.setBackgroundColor(Color.parseColor("#F44336")); // False
-            infraredSwitch3.setBackgroundColor(Color.parseColor("#F44336")); // False
+            wifiSwitch3.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
+            infraredSwitch3.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
         }
 
         if (wifiState4 || infraredState4) {
-            wifiSwitch4.setBackgroundColor(Color.parseColor("#4CAF50"));
-            infraredSwitch4.setBackgroundColor(Color.parseColor("#4CAF50"));
+            wifiSwitch4.setBackgroundColor(getResources().getColor(R.color.color_green));
+            infraredSwitch4.setBackgroundColor(getResources().getColor(R.color.color_green));
         }else {
-            wifiSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
-            infraredSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
+            wifiSwitch4.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
+            infraredSwitch4.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
         }
     }
 
