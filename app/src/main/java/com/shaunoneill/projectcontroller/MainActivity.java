@@ -26,8 +26,11 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean state1, state2, state3, state4;
-    Button switch1, switch2, switch3, switch4;
+    boolean wifiState1, wifiState2, wifiState3, wifiState4;
+    boolean infraredState1, infraredState2, infraredState3, infraredState4;
+
+    Button wifiSwitch1, wifiSwitch2, wifiSwitch3, wifiSwitch4;
+    Button infraredSwitch1, infraredSwitch2, infraredSwitch3, infraredSwitch4;
 
     OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -41,10 +44,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        switch1 = (Button) findViewById(R.id.switch1);
-        switch2 = (Button) findViewById(R.id.switch2);
-        switch3 = (Button) findViewById(R.id.switch3);
-        switch4 = (Button) findViewById(R.id.switch4);
+        wifiSwitch1 = (Button) findViewById(R.id.wifiSwitch1);
+        wifiSwitch2 = (Button) findViewById(R.id.wifiSwitch2);
+        wifiSwitch3 = (Button) findViewById(R.id.wifiSwitch3);
+        wifiSwitch4 = (Button) findViewById(R.id.wifiSwitch4);
+
+        infraredSwitch1 = (Button) findViewById(R.id.infraredSwitch1);
+        infraredSwitch2 = (Button) findViewById(R.id.infraredSwitch2);
+        infraredSwitch3 = (Button) findViewById(R.id.infraredSwitch3);
+        infraredSwitch4 = (Button) findViewById(R.id.infraredSwitch4);
+
 
         /**
          * Setup the IR blaster
@@ -70,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
          * Set the button colours based on their state
          */
         fetchStateColors();
+
+    }
+
+    private int currentPattern = 0;
+    private void transmitData() {
+        TransmitInfo transmitInfo = patterns[currentPattern++];
+        if (currentPattern >= patterns.length) currentPattern = 0;
+        infraRed.transmit(transmitInfo);
     }
 
     @Override
@@ -94,28 +111,54 @@ public class MainActivity extends AppCompatActivity {
      * Sets the color and default state variables
      */
     public void fetchStateColors() {
-        if (state1) {
-            switch1.setBackgroundColor(Color.parseColor("#4CAF50"));
+        // Wifi
+        if (wifiState1) {
+            wifiSwitch1.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
-            switch1.setBackgroundColor(Color.parseColor("#F44336")); // False
+            wifiSwitch1.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
 
-        if (state2) {
-            switch2.setBackgroundColor(Color.parseColor("#4CAF50"));
+        if (wifiState2) {
+            wifiSwitch2.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
-            switch2.setBackgroundColor(Color.parseColor("#F44336")); // False
+            wifiSwitch2.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
 
-        if (state3) {
-            switch3.setBackgroundColor(Color.parseColor("#4CAF50"));
+        if (wifiState3) {
+            wifiSwitch3.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
-            switch3.setBackgroundColor(Color.parseColor("#F44336")); // False
+            wifiSwitch3.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
 
-        if (state4) {
-            switch4.setBackgroundColor(Color.parseColor("#4CAF50"));
+        if (wifiState4) {
+            wifiSwitch4.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
-            switch4.setBackgroundColor(Color.parseColor("#F44336")); // False
+            wifiSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
+        }
+
+        // Infrared
+        if (infraredState1) {
+            infraredSwitch1.setBackgroundColor(Color.parseColor("#4CAF50"));
+        }else {
+            infraredSwitch1.setBackgroundColor(Color.parseColor("#F44336")); // False
+        }
+
+        if (infraredState2) {
+            infraredSwitch2.setBackgroundColor(Color.parseColor("#4CAF50"));
+        }else {
+            infraredSwitch2.setBackgroundColor(Color.parseColor("#F44336")); // False
+        }
+
+        if (infraredState3) {
+            infraredSwitch3.setBackgroundColor(Color.parseColor("#4CAF50"));
+        }else {
+            infraredSwitch3.setBackgroundColor(Color.parseColor("#F44336")); // False
+        }
+
+        if (infraredState4) {
+            infraredSwitch4.setBackgroundColor(Color.parseColor("#4CAF50"));
+        }else {
+            infraredSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
     }
 
@@ -125,16 +168,25 @@ public class MainActivity extends AppCompatActivity {
      * @return
      */
     public void toggleState(View button){
-        if (button.getId() == R.id.switch1) {
-            state1 = !state1; // Toggle state
+        if (button.getId() == R.id.wifiSwitch1) {
+            wifiState1 = !wifiState1; // Toggle state
+        }else if (button.getId() == R.id.wifiSwitch2) {
+            wifiState2 = !wifiState2; // Toggle state
+        }else if (button.getId() == R.id.wifiSwitch3) {
+            wifiState3 = !wifiState3; // Toggle state
+        }else if (button.getId() == R.id.wifiSwitch4) {
+            wifiState4 = !wifiState4; // Toggle state
+        }
 
-
-        }else if (button.getId() == R.id.switch2) {
-            state2 = !state2; // Toggle state
-        }else if (button.getId() == R.id.switch3) {
-            state3 = !state3; // Toggle state
-        }else if (button.getId() == R.id.switch4) {
-            state4 = !state4; // Toggle state
+        // Infrared
+        if (button.getId() == R.id.infraredSwitch1) {
+            infraredState1 = !infraredState1; // Toggle state
+        }else if (button.getId() == R.id.infraredSwitch2) {
+            infraredState2 = !infraredState2; // Toggle state
+        }else if (button.getId() == R.id.infraredSwitch3) {
+            infraredState3 = !infraredState3; // Toggle state
+        }else if (button.getId() == R.id.infraredSwitch4) {
+            infraredState4 = !infraredState4; // Toggle state
         }
     }
 
