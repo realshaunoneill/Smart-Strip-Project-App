@@ -112,31 +112,39 @@ public class MainActivity extends AppCompatActivity {
      */
     public void fetchStateColors() {
         // Wifi
-        if (wifiState1) {
+        if (wifiState1 || infraredState1) {
             wifiSwitch1.setBackgroundColor(Color.parseColor("#4CAF50"));
+            infraredSwitch1.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
             wifiSwitch1.setBackgroundColor(Color.parseColor("#F44336")); // False
+            infraredSwitch1.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
 
-        if (wifiState2) {
+        if (wifiState2 || infraredState2) {
             wifiSwitch2.setBackgroundColor(Color.parseColor("#4CAF50"));
+            infraredSwitch2.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
             wifiSwitch2.setBackgroundColor(Color.parseColor("#F44336")); // False
+            infraredSwitch2.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
 
-        if (wifiState3) {
+        if (wifiState3 || infraredState3) {
             wifiSwitch3.setBackgroundColor(Color.parseColor("#4CAF50"));
+            infraredSwitch3.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
             wifiSwitch3.setBackgroundColor(Color.parseColor("#F44336")); // False
+            infraredSwitch3.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
 
-        if (wifiState4) {
+        if (wifiState4 || infraredState4) {
             wifiSwitch4.setBackgroundColor(Color.parseColor("#4CAF50"));
+            infraredSwitch4.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
             wifiSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
+            infraredSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
         }
 
-        // Infrared
+        /*// Infrared
         if (infraredState1) {
             infraredSwitch1.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
@@ -159,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             infraredSwitch4.setBackgroundColor(Color.parseColor("#4CAF50"));
         }else {
             infraredSwitch4.setBackgroundColor(Color.parseColor("#F44336")); // False
-        }
+        }*/
     }
 
     /**
