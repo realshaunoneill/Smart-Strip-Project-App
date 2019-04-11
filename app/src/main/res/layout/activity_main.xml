@@ -7,20 +7,6 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/wifiSwitch4"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="40dp"
-        android:onClick="clickSwitch"
-        android:text="Switch Four"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/infraredSwitch3"
-        app:layout_constraintTop_toBottomOf="@+id/wifiSwitch2" />
-
-    <Button
         android:id="@+id/wifiSwitch1"
         android:layout_width="0dp"
         android:layout_height="90dp"
@@ -34,6 +20,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
+        android:id="@+id/wifiSwitch4"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="40dp"
+        android:onClick="clickSwitch"
+        android:text="Switch Four"
+        android:clickable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/infraredSwitch3"
+        app:layout_constraintTop_toBottomOf="@+id/wifiSwitch2" />
+
+    <Button
         android:id="@+id/wifiSwitch2"
         android:layout_width="0dp"
         android:layout_height="90dp"
@@ -42,6 +43,7 @@
         android:layout_marginEnd="40dp"
         android:onClick="clickSwitch"
         android:text="Switch Two"
+        android:clickable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/infraredSwitch1"
@@ -56,6 +58,7 @@
         android:layout_marginEnd="8dp"
         android:onClick="clickSwitch"
         android:text="Switch Three"
+        android:clickable="false"
         app:layout_constraintEnd_toStartOf="@+id/wifiSwitch4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wifiSwitch1" />
@@ -93,6 +96,7 @@
         android:layout_marginEnd="8dp"
         android:onClick="clickSwitch"
         android:text="Switch One"
+        android:clickable="false"
         app:layout_constraintEnd_toStartOf="@+id/infraredSwitch2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -106,6 +110,7 @@
         android:layout_marginEnd="8dp"
         android:onClick="clickSwitch"
         android:text="Switch Three"
+        android:clickable="false"
         app:layout_constraintEnd_toStartOf="@+id/infraredSwitch4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infraredSwitch1" />
@@ -119,6 +124,7 @@
         android:layout_marginEnd="40dp"
         android:onClick="clickSwitch"
         android:text="Switch Two"
+        android:clickable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/infraredSwitch1"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -132,6 +138,7 @@
         android:layout_marginEnd="40dp"
         android:onClick="clickSwitch"
         android:text="Switch Four"
+        android:clickable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/infraredSwitch3"
         app:layout_constraintTop_toBottomOf="@+id/infraredSwitch2" />
