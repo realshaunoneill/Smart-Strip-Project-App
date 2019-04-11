@@ -3,6 +3,7 @@
     package="com.shaunoneill.projectcontroller">
 
     <uses-permission android:name="android.permission.TRANSMIT_IR" android:required="false"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-feature android:name="android.hardware.consumerir" android:required="false"/>
 
     <application

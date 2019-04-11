@@ -21,8 +21,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
@@ -209,16 +212,25 @@ public class MainActivity extends AppCompatActivity {
      * @param state - The desired output state (true = on)
      * @throws IOException
      */
-    String post(String url, boolean state) throws IOException {
+    void post(String url, boolean state) throws IOException {
         Request request = new Request.Builder()
                 .url(url + (state ? "/?enable=3" : "/?disable=3"))
-                .post(null).build();
+                .post(RequestBody.create(null, "")).build();
 
-        try (Response response = client.newCall(request).execute()) {
-            if (response.body() != null) {
-                return response.body().string();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
             }
-        }
-        return null;
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                }
+
+                // you code to handle response
+            }
+        });
     }
 }
