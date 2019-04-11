@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Set the button colours based on their state
          */
-        fetchStateColors();
+        //fetchStateColors();
 
     }
 
@@ -123,9 +124,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickSwitch(View view) {
-        toggleState(view);
-        fetchStateColors();
-
+        //toggleState(view);
+        //fetchStateColors();
+        if (view.getId() == R.id.wifiSwitch1) {
+            // Enable
+            try {
+                post("http://192.168.0.12", true);
+                Log.d("HERE", "TESTING");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                post("http://192.168.0.12", false);
+                Log.d("HERE", "TESTINGdwadawdawd");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -137,11 +153,7 @@ public class MainActivity extends AppCompatActivity {
             wifiSwitch1.setBackgroundColor(getResources().getColor(R.color.color_green));
             infraredSwitch1.setBackgroundColor(getResources().getColor(R.color.color_green));
 
-            try {
-                post("http://192.168.0.12", true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         } else {
             wifiSwitch1.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
             infraredSwitch1.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
