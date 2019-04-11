@@ -3,12 +3,15 @@ package com.shaunoneill.projectcontroller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.obd.infrared.InfraRed;
 import com.obd.infrared.log.LogToConsole;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Button infraredSwitch1, infraredSwitch2, infraredSwitch3, infraredSwitch4;
 
     OkHttpClient client = new OkHttpClient();
+    public static String connectIp = "smart-strip.local";
 
     InfraRed infraRed;
     private TransmitInfo[] patterns;
@@ -124,20 +128,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickSwitch(View view) {
-        //toggleState(view);
+        toggleState(view);
         //fetchStateColors();
         if (view.getId() == R.id.wifiSwitch1) {
             // Enable
             try {
-                post("http://192.168.0.12", true);
-                Log.d("HERE", "TESTING");
+                post(connectIp, true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             try {
-                post("http://192.168.0.12", false);
-                Log.d("HERE", "TESTINGdwadawdawd");
+                post(connectIp, false);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             infraredSwitch1.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
 
             try {
-                post("http://192.168.0.12", true);
+                post("http://192.168.137.165", true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -215,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (button.getId() == R.id.infraredSwitch3) {
             infraredState3 = !infraredState3; // Toggle state
         } else if (button.getId() == R.id.infraredSwitch4) {
+            Intent intent = new Intent(this, IpActivity.class);
+            startActivity(intent);
             infraredState4 = !infraredState4; // Toggle state
         }
     }
@@ -225,6 +229,8 @@ public class MainActivity extends AppCompatActivity {
      * @throws IOException
      */
     void post(String url, boolean state) throws IOException {
+        Log.d("REQUEST", "Sending request to: " + url);
+        //Toast.makeText(this, "Updating.... please wait", Toast.LENGTH_SHORT).show();
         Request request = new Request.Builder()
                 .url(url + (state ? "/?enable=3" : "/?disable=3"))
                 .post(RequestBody.create(null, "")).build();
@@ -233,6 +239,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
+
+                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(MainActivity.this, "Unable to process request, please try again shortly!", Toast.LENGTH_SHORT).show());
             }
 
             @Override
@@ -240,8 +248,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 }
-
-                // you code to handle response
+                new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(MainActivity.this, "Successfully updated status to: " + state, Toast.LENGTH_SHORT).show());
+                //
             }
         });
     }

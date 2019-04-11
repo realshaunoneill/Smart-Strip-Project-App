@@ -22,6 +22,10 @@
         </activity>
 
         <activity android:name=".TutorialActivity"
+            android:label="Installation Instructions"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".IpActivity"
             android:parentActivityName=".MainActivity"/>
     </application>
 
