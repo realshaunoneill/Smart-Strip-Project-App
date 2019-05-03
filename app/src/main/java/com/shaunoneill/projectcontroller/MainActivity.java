@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         infraredSwitch3 = findViewById(R.id.infraredSwitch3);
         infraredSwitch4 = findViewById(R.id.infraredSwitch4);
 
-
+        fetchStateColors();
         /**
          * Setup the IR blaster
          */
@@ -129,21 +129,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickSwitch(View view) {
         toggleState(view);
-        //fetchStateColors();
-        if (view.getId() == R.id.wifiSwitch1) {
-            // Enable
-            try {
-                post(connectIp, true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                post(connectIp, false);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        fetchStateColors();
+
+        try {
+            if (view.getId() == R.id.wifiSwitch1) post(connectIp, wifiState1, 1);
+            else if (view.getId() == R.id.wifiSwitch2) post(connectIp, wifiState2, 2);
+            else if (view.getId() == R.id.wifiSwitch3) post(connectIp, wifiState3, 3);
+            else if (view.getId() == R.id.wifiSwitch4) post(connectIp, wifiState4, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     /**
@@ -155,16 +151,9 @@ public class MainActivity extends AppCompatActivity {
             wifiSwitch1.setBackgroundColor(getResources().getColor(R.color.color_green));
             infraredSwitch1.setBackgroundColor(getResources().getColor(R.color.color_green));
 
-
         } else {
             wifiSwitch1.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
             infraredSwitch1.setBackgroundColor(getResources().getColor(R.color.color_red)); // False
-
-            try {
-                post("http://192.168.137.165", true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
         if (wifiState2 || infraredState2) {
@@ -228,11 +217,11 @@ public class MainActivity extends AppCompatActivity {
      * @param state - The desired output state (true = on)
      * @throws IOException
      */
-    void post(String url, boolean state) throws IOException {
-        Log.d("REQUEST", "Sending request to: " + url);
+    void post(String url, boolean state, int relay) throws IOException {
+        Log.d("REQUEST", "Sending request to: " + url + ", data: " + relay + ", - " + state);
         //Toast.makeText(this, "Updating.... please wait", Toast.LENGTH_SHORT).show();
         Request request = new Request.Builder()
-                .url(url + (state ? "/?enable=3" : "/?disable=3"))
+                .url(url + (state ? "/?enable=" : "/?disable=") + relay)
                 .post(RequestBody.create(null, "")).build();
 
         client.newCall(request).enqueue(new Callback() {
